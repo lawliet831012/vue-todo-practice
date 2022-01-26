@@ -22,7 +22,7 @@ export const mutations = {
   LOGOUT: function logout(state) {
     state.login = '';
     state.todoList = [];
-    localStorage.setItem('loginName', null);
+    localStorage.setItem('loginName', '');
   },
   START_LOADING: function startLoadingToMimicApiLoading(state) {
     state.loading = true;
