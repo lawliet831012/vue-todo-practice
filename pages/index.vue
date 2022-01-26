@@ -1,11 +1,13 @@
 <template>
   <div class='layout'>
+    <LoginForm />
+
     <div class="navBar">
       <svg :viewBox="menuIcon.viewBox">
         <use :xlink:href="'#' + menuIcon.id"></use>
       </svg>
       <h1>HandsUP</h1>
-      <svg :viewBox="signOutIcon.viewBox">
+      <svg @click="logout" :viewBox="signOutIcon.viewBox">
         <use :xlink:href="'#' + signOutIcon.id"></use>
       </svg>
     </div>
@@ -26,7 +28,11 @@
           placeholder="請輸入要做的事情"
           :disabled="$store.state.loading"
           @keypress.enter="createTodo" />
-        <button :disabled="$store.state.loading" @click="createTodo">add</button>
+        <button :disabled="$store.state.loading" @click="createTodo">
+          <svg :viewBox="plusIcon.viewBox">
+            <use :xlink:href="'#' + plusIcon.id"></use>
+          </svg>
+        </button>
       </div>
     </div>
     
@@ -38,9 +44,9 @@
   import signOutIcon from "~/assets/svgs/signOutIcon.svg?sprite";
   import plusIcon from "~/assets/svgs/plusIcon.svg?sprite";
 
-  export default {
-    
+  const initailLogin = localStorage.getItem('loginName');
 
+  export default {
     data() {
       return {
         newTodo: '',
@@ -58,6 +64,11 @@
           this.newTodo = '';
         }
       },
-    }
+      logout() {
+        if(this.$store.state.login) {
+          this.$store.commit('LOGOUT');
+        }
+      }
+    },
   }
 </script>
